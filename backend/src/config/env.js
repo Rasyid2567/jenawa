@@ -13,7 +13,9 @@ const schema = z.object({
   JWT_AUDIENCE: z.string().default('jenawa-client'),
   JWT_EXPIRES_IN: z.string().default('15m'),
   CORS_ORIGINS: z.string().default('http://localhost:5173'),
-  BCRYPT_ROUNDS: z.coerce.number().int().min(10).max(15).default(12)
+  BCRYPT_ROUNDS: z.coerce.number().int().min(10).max(15).default(12),
+  SUPABASE_URL: z.string().url(),
+  SUPABASE_SERVICE_ROLE_KEY: z.string().min(1)  
 });
 
 const result = schema.safeParse(process.env);
@@ -30,3 +32,4 @@ export const env = {
     .map((origin) => origin.trim())
     .filter(Boolean)
 };
+

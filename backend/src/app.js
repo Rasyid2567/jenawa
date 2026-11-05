@@ -1,6 +1,5 @@
 
 import express from 'express';
-import { PROFILE_UPLOAD_DIR } from './config/profileStorage.js';
 import cors from 'cors';
 import helmet from 'helmet';
 import { env } from './config/env.js';
@@ -33,14 +32,6 @@ app.use(cors({
 }));
 
 app.use(express.json({ limit: '100kb' }));
-
-// Foto profil dilayani dari direktori upload khusus. Berkas hanya dibuat
-// oleh endpoint terautentikasi dan memakai nama file acak.
-app.use(
-  '/uploads/profiles',
-  helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }),
-  express.static(PROFILE_UPLOAD_DIR, { maxAge: '1d', fallthrough: true })
-);
 
 app.get('/api/health', (req, res) => {
   res.json({

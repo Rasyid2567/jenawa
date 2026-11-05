@@ -14,7 +14,7 @@ export function errorHandler(err, req, res, next) {
   const status = Number.isInteger(err.status) ? err.status : 500;
 
   if (status >= 500) {
-    console.error('Kesalahan internal server.');
+    console.error('Kesalahan internal server:', err);
   }
 
   res.status(status).json({

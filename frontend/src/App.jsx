@@ -489,8 +489,8 @@ export default function App() {
       event.target.value = '';
       return;
     }
-    if (file.size > 3 * 1024 * 1024) {
-      setError('Ukuran foto maksimal 3 MB.');
+    if (file.size > 500 * 1024) {
+      setError('Ukuran foto maksimal 500 KB.');
       event.target.value = '';
       return;
     }
