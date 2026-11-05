@@ -1,13 +1,21 @@
-
 import pg from 'pg';
+import { readFileSync } from 'node:fs';
 import { env } from '../config/env.js';
 
 const { Pool } = pg;
 
+const supabaseCA = readFileSync(
+  new URL('../../certs/prod-ca-2021.crt', import.meta.url),
+  'utf8'
+);
+
 export const pool = new Pool({
   connectionString: env.DATABASE_URL,
   ssl: env.DATABASE_SSL === 'true'
-    ? { rejectUnauthorized: true }
+    ? {
+        ca: supabaseCA,
+        rejectUnauthorized: true
+      }
     : false,
   max: 10,
   idleTimeoutMillis: 30000,
